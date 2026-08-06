@@ -1,0 +1,48 @@
+
+<%- include("partials/header",{title:"Dish Details"}) %>
+<div class="container mt-5">
+
+<h1>
+    <%= dish.DishName %>
+</h1>
+
+<p>
+
+<a
+href="<%= dish.recipe %>"
+target="_blank">
+
+View Recipe
+
+</a>
+
+</p>
+
+<hr>
+
+<h3>Ingredients</h3>
+
+<ul>
+
+<%
+ingredients.forEach(
+ingredient => {
+%>
+
+<li>
+
+<%= ingredient.IngredientName %>
+
+-
+
+<%= ingredient.Quantity %>
+
+</li>
+
+<% }) %>
+
+</ul>
+<a href="/dishes/<%= dish.DishID %>/edit">Edit Ingredients</a>
+</div>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,207 @@
+
+<%- include("partials/header",{title:"Meal Planner"}) %>
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header">
+            <h5 class="mb-0">🍽 Meal Planner</h5>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Select Date -->
+            <form id="dateForm" action="/mealPlanner" method="GET">
+
+                <div class="row align-items-end g-3">
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Meal Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="mealDate"
+                            name="mealDate"
+                            class="form-control form-control-sm"
+                            value="<%= mealDate %>"
+                            required>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+            <% if(mealDate){ %>
+
+            <div class="border-top my-4"></div>
+
+            <!-- Add / Edit Meal Plan -->
+
+            <form method="POST" action="/mealPlanner">
+
+                <input
+                    type="hidden"
+                    name="mealDate"
+                    value="<%= mealDate %>">
+
+                <!-- Breakfast -->
+
+                <!-- Breakfast -->
+
+<div class="row mb-3 align-items-center">
+
+    <label class="col-md-2 col-form-label">
+        Breakfast
+    </label>
+
+    <div class="col-md-5">
+
+        <select
+            name="breakfastdish"
+            class="form-select form-select-sm"
+            required>
+
+            <option value=""
+                <%= !selectedMeals.Breakfast ? "selected" : "" %>>
+                Select
+            </option>
+
+            <% dishes.forEach(dish => { %>
+
+                <option
+                    value="<%= dish.DishID %>"
+                    <%= dish.DishID === selectedMeals.Breakfast ? "selected" : "" %>>
+
+                    <%= dish.DishName %>
+
+                </option>
+
+            <% }) %>
+
+        </select>
+
+    </div>
+
+</div>
+
+                <!-- Lunch -->
+
+                <div class="row mb-3 align-items-center">
+
+                    <label class="col-md-2 col-form-label">
+                        Lunch
+                    </label>
+
+                    <div class="col-md-5">
+
+                        <select
+                            name="lunchdish"
+                            class="form-select form-select-sm"
+                            required>
+
+                            <option value=""
+                                <%= !selectedMeals.Lunch ? "selected" : "" %>>
+                                Select
+                            </option>
+
+                            <% dishes.forEach(dish => { %>
+
+                                <option
+                                    value="<%= dish.DishID %>"
+                                    <%= dish.DishID == selectedMeals.Lunch ? "selected" : "" %>>
+
+                                    <%= dish.DishName %>
+
+                                </option>
+
+                            <% }) %>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- Dinner -->
+
+                <div class="row mb-4 align-items-center">
+
+                    <label class="col-md-2 col-form-label">
+                        Dinner
+                    </label>
+
+                    <div class="col-md-5">
+
+                        <select
+                            name="dinnerdish"
+                            class="form-select form-select-sm"
+                            required>
+
+                            <option value=""
+                                <%= !selectedMeals.Dinner ? "selected" : "" %>>
+                                Select
+                            </option>
+
+                            <% dishes.forEach(dish => { %>
+
+                                <option
+                                    value="<%= dish.DishID %>"
+                                    <%= dish.DishID == selectedMeals.Dinner ? "selected" : "" %>>
+
+                                    <%= dish.DishName %>
+
+                                </option>
+
+                            <% }) %>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 text-end">
+
+                    <button
+                        type="submit"
+                        class="btn btn-success px-4">
+
+                        💾 Save Meal Plan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <% } else { %>
+
+                <div class="text-center text-muted mt-5 mb-4">
+
+                    <h5>📅 Please select a date to create or edit a meal plan.</h5>
+
+                </div>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("mealDate").addEventListener("change", function () {
+    document.getElementById("dateForm").submit();
+});
+
+</script>
+
+<%- include("partials/footer") %>
+

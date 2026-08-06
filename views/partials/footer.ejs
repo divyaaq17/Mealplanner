@@ -1,0 +1,44 @@
+</main>
+<footer class="bg-dark text-light text-center py-3 mt-5">
+
+    <div class="container">
+
+        <small>
+            © <%= new Date().getFullYear() %> Meal Planner |
+            Built with Node.js, Express & MySQL
+        </small>
+
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+document.querySelectorAll("form").forEach(form => {
+
+    form.addEventListener("submit", function () {
+
+        const button = form.querySelector("button[type='submit']");
+
+        if (button) {
+
+            button.disabled = true;
+
+            button.dataset.originalText = button.innerHTML;
+
+            button.innerHTML = `
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Saving...
+            `;
+
+        }
+
+    });
+
+});
+
+</script>
+</body>
+</html>

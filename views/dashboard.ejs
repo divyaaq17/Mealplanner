@@ -1,0 +1,229 @@
+<%- include("partials/header",{title:"Dashboard"}) %>
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Welcome,
+        <%= user.userName %> 👋
+    </h2>
+
+    <!-- Top Statistics -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+
+            <div class="card border-primary shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h2>🍽</h2>
+
+                    <h5><%= stats.totalDishes %></h5>
+
+                    <small class="text-muted">
+                        Total Dishes
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-success shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h2>🥕</h2>
+
+                    <h5><%= stats.totalIngredients %></h5>
+
+                    <small class="text-muted">
+                        Ingredients
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-warning shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h2>📅</h2>
+
+                    <h5><%= stats.totalMealPlans %></h5>
+
+                    <small class="text-muted">
+                        Meal Plans
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-danger shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h2>❤️</h2>
+
+                    <h5><%= favouriteCount %></h5>
+
+                    <small class="text-muted">
+                        Favourite Dishes
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Cards -->
+
+    <div class="row g-4">
+
+        <!-- Most Planned -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header">
+
+                    🏆 Most Planned Dish
+
+                </div>
+
+                <div class="card-body">
+
+                    <% if(mostPlannedDish){ %>
+
+                        <h5>
+                            <%= mostPlannedDish.DishName %>
+                        </h5>
+
+                        <p class="text-muted mb-0">
+
+                            Planned
+                            <strong>
+                                <%= mostPlannedDish.totalPlans %>
+                            </strong>
+                            times
+
+                        </p>
+
+                    <% } else { %>
+
+                        <p>No meal plans yet.</p>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Meals This Week -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header">
+
+                    📆 Meals This Week
+
+                </div>
+
+                <div class="card-body text-center">
+
+                    <h1 class="display-5">
+
+                        <%= mealsThisWeek %>
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Today's Meals -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header">
+
+                    🍳 Today's Meals
+
+                </div>
+
+                <div class="card-body">
+
+                    <% if(todaysMeals.length === 0){ %>
+
+                        <p class="text-muted">
+
+                            No meals planned today.
+
+                        </p>
+
+                    <% } else { %>
+
+                        <% todaysMeals.forEach(meal => { %>
+
+                            <div class="mb-3">
+
+                                <strong>
+
+                                    <%= meal.mealType %>
+
+                                </strong>
+
+                                <br>
+
+                                <span class="text-muted">
+
+                                    <%= meal.dishName %>
+
+                                </span>
+
+                            </div>
+
+                        <% }) %>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<%- include("partials/footer") %>

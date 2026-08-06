@@ -1,0 +1,38 @@
+<%- include("partials/header",{title:"Shopping List"}) %>
+<a href="/mealPlanner" class="btn btn-secondary mb-3">
+    ← Back to Meal Planner
+</a>
+<div class="container mt-5">
+
+<h1>Shopping List</h1>
+
+<form method="GET" action="/shoppingList">
+
+    <input type="date" name="mealDate" value="<%= mealDate || '' %>">
+
+    <button type="submit" class="btn btn-primary">
+        Search
+    </button>
+
+</form>
+
+<hr>
+<% let currentMeal = ""; %>
+<% shoppingList.forEach(item=>{ %>
+
+    <% if(currentMeal!==item.MealType){ %>
+
+        <% currentMeal=item.MealType; %>
+
+        <h3><%= item.MealType %></h3>
+        <h5><%= item.DishName %></h5>
+
+    <% } %>
+
+    <p>• <%= item.IngredientName %> - <%= item.Quantity %></p>
+
+<% }) %>
+
+</div>
+
+<%- include("partials/footer") %>

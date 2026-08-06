@@ -1,0 +1,156 @@
+<%- include("partials/header",{title:"Dish Ingredients"}) %>
+<div class="container mt-5">
+
+<h1>Dish Ingredients</h1>
+
+<form method="POST" action="/dish-ingredients">
+
+<div class="mb-3">
+
+<label>Dish</label>
+
+<select name="dishId" class="form-select">
+
+<% dishes.forEach(dish => { %>
+
+<option value="<%= dish.DishID %>">
+    <%= dish.DishName %>
+</option>
+
+<% }) %>
+
+</select>
+
+</div>
+
+<table class="table">
+
+<thead>
+<tr>
+<th>Ingredient</th>
+<th>Quantity</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody id="ingredientBody">
+
+<tr>
+
+<td>
+
+<select name="ingredientId[]" class="form-select">
+
+<% ingredients.forEach(ingredient => { %>
+
+<option value="<%= ingredient.IngredientID %>">
+
+<%= ingredient.IngredientName %>
+
+</option>
+
+<% }) %>
+
+</select>
+
+</td>
+
+<td>
+
+<input type="text" name="quantity[]" class="form-control">
+
+</td>
+
+<td>
+
+<button
+type="button"
+class="btn btn-danger removeRow">
+
+×
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<button
+type="button" id="addRowBtn"
+class="btn btn-secondary">
+
++ Add More
+
+</button>
+
+<button
+    type="submit"
+    class="btn btn-success mt-3">
+    Save
+</button>
+
+
+</form>
+
+</div>
+<script type="text/template" id="ingredientOptions">
+
+<% ingredients.forEach(ingredient => { %>
+
+<option value="<%= ingredient.IngredientID %>">
+    <%= ingredient.IngredientName %>
+</option>
+
+<% }) %>
+
+</script>
+<script>
+    document.getElementById("addRowBtn").addEventListener("click",function(){
+     //   alert("Button Clicked")
+     const ingredientOptions =document.getElementById("ingredientOptions").innerHTML;
+      const tbody =document.getElementById("ingredientBody");
+
+    const newRow =document.createElement("tr");
+
+    newRow.innerHTML = ` <td>
+           <select name="ingredientId[]" class="form-select">
+
+              ${ingredientOptions}
+
+            </select>
+        </td>
+
+        <td>
+            <input type="text" name="quantity[]" class="form-control">
+        </td>
+
+        <td>
+            <button
+                type="button"
+                class="btn btn-danger removeRow">
+                ×
+            </button>
+        </td>
+    
+    `;
+
+    tbody.appendChild(newRow);
+
+    });
+    document.addEventListener("click", function(event) {
+
+    if (event.target.classList.contains("removeRow")) {
+
+        event.target
+            .closest("tr")
+            .remove();
+
+    }
+
+});
+</script>
+<%- include("partials/footer") %>

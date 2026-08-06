@@ -1,0 +1,152 @@
+<%- include("partials/header",{title:"Weekly Planner"}) %>
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">📅 Weekly Meal Planner</h2>
+
+    <!-- Search Card -->
+    <div class="card shadow-sm border mb-4">
+
+        <div class="card-header bg-light">
+            <strong>Select Week</strong>
+        </div>
+
+        <div class="card-body">
+
+            <form method="GET" action="/weeklyPlanner">
+
+                <div class="row align-items-end">
+
+                    <div class="col-md-3">
+
+                        <label class="form-label mb-1">
+                            Week Starting
+                        </label>
+
+                        <input
+                            type="date"
+                            name="firstMealDate"
+                            class="form-control form-control-sm"
+                            value="<%= firstMealDate || '' %>"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <button class="btn btn-primary btn-sm w-100">
+                            View Week
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <% if(firstMealDate){ %>
+
+        <div class="mb-3">
+
+            <h6 class="text-muted">
+                Week:
+                <strong><%= firstMealDate %></strong>
+                -
+                <strong><%= secMealDate %></strong>
+            </h6>
+
+        </div>
+
+    <% } %>
+
+
+    <% if(Object.keys(weekData).length === 0){ %>
+
+        <div class="alert alert-info">
+
+            No meal plan found for this week.
+
+        </div>
+
+    <% } else { %>
+
+        <div class="card shadow-sm border">
+
+            <div class="card-header bg-light">
+
+                <strong>Weekly Meal Plan</strong>
+
+            </div>
+
+            <div class="card-body p-0">
+
+                <table class="table table-hover table-bordered align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th width="18%">Day</th>
+
+                            <th class="text-center">🌞 Breakfast</th>
+
+                            <th class="text-center">🍛 Lunch</th>
+
+                            <th class="text-center">🌙 Dinner</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <% for(let date in weekData){ %>
+
+                            <tr>
+
+                                <td>
+
+                                    <strong><%= weekData[date].day %></strong>
+
+                                    <br>
+
+                                    <small class="text-muted">
+                                        <%= date %>
+                                    </small>
+
+                                </td>
+
+                                <td class="text-center">
+                                    <%= weekData[date].Breakfast || "-" %>
+                                </td>
+
+                                <td class="text-center">
+                                    <%= weekData[date].Lunch || "-" %>
+                                </td>
+
+                                <td class="text-center">
+                                    <%= weekData[date].Dinner || "-" %>
+                                </td>
+
+                            </tr>
+
+                        <% } %>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    <% } %>
+
+</div>
+
+<%- include("partials/footer") %>

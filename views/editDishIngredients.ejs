@@ -1,0 +1,41 @@
+<%- include("partials/header",{title:"Edit Ingredients"}) %>
+<form action="/dishes/<%= dish.DishID %>/edit" method="POST">
+    <h1>Edit Ingredients</h1>
+<h2>
+    <%= dish.DishName %>
+</h2>
+<input type="hidden" name="dishId" value="<%= dish.DishID %>">
+
+<h3>Current Ingredients</h3>
+
+<table border="1">
+
+<% dishIngredients.forEach(item => { %>
+
+<tr>
+
+    <td>
+        <select name="ingredientID"><% ingredients.forEach(ingredient => { %>
+            <option value="<%= ingredient.IngredientID %>"
+            <%= ingredient.IngredientID === item.IngredientID?'selected':'' %>>
+            <%= ingredient.IngredientName %> </option>
+<% }) %>
+        </select>
+    </td>
+
+    <td>
+        <input type="text"    name="quantity"    value="<%= item.Quantity %>">
+    </td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+<hr>
+
+
+<input type="submit" value="Save Changes">
+</form>
+<%- include("partials/footer") %>
