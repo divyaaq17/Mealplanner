@@ -112,7 +112,75 @@ exports.showDishDetails = (req,res) => {
     );
 
 };
+exports.addIngredientToDish = (req, res) => {
 
+    const dishId = req.params.id;
+
+    const ingredientId = req.body.ingredientId;
+
+    const quantity = req.body.quantity;
+
+    dishIngredientModel.addDishIngredient(
+
+        dishId,
+
+        ingredientId,
+
+        quantity,
+
+        (err) => {
+
+            if (err) {
+
+                console.log(err);
+
+                req.flash("error", "Unable to add ingredient.");
+
+                return res.redirect(`/dishes/${dishId}/editDish`);
+
+            }
+
+            req.flash("success", "Ingredient added successfully.");
+
+            res.redirect(`/dishes/${dishId}/editDish`);
+
+        }
+
+    );
+
+};
+exports.removeIngredientFromDish = (req, res) => {
+
+    const dishId = req.params.id;
+    const ingredientId = req.params.ingredientId;
+
+    dishIngredientModel.deleteDishIngredient(
+
+        dishId,
+
+        ingredientId,
+
+        (err) => {
+
+            if (err) {
+
+                console.log(err);
+
+                req.flash("error", "Unable to remove ingredient.");
+
+                return res.redirect(`/dishes/${dishId}/editDish`);
+
+            }
+
+            req.flash("success", "Ingredient removed.");
+
+            res.redirect(`/dishes/${dishId}/editDish`);
+
+        }
+
+    );
+
+};
 exports.showEditpage = (req, res) => {
 
     const dishId = req.params.id;
@@ -207,25 +275,44 @@ exports.showEditDish = (req, res) => {
 
     const dishId = req.params.id;
 
-    dishModel.getDishById(
-        dishId,
-        (err, results) => {
+    dishModel.getDishById(dishId, (err, dishResult) => {
 
+        if (err) {
+            console.log(err);
+            req.flash("error", "Something went wrong.");
+            return res.redirect("/dishes");
+        }
+
+        ingredientModel.getAllIngredientsForDropdown((err, ingredientsResult) => {
             if (err) {
                 console.log(err);
                 req.flash("error", "Something went wrong.");
                 return res.redirect("/dishes");
             }
 
-            res.render(
-                "editDish",
-                {
-                    dish: results[0]
-                }
-            );
+            dishIngredientModel.getIngredientsByDishId(dishId, (err, dishIngredientsResult) => {
 
-        }
-    );
+                if (err) {
+                    console.log(err);
+                    req.flash("error", "Something went wrong.");
+                    return res.redirect("/dishes");
+                }
+
+                res.render("editDish", {
+
+                    dish: dishResult[0],
+
+                    ingredients: ingredientsResult,
+
+                    dishIngredients: dishIngredientsResult
+
+                });
+
+            });
+
+        });
+
+    });
 
 };
 
@@ -240,7 +327,7 @@ exports.saveEditedDish = (req, res) => {
             return res.redirect("/dishes/" + dishId);
         }
         req.flash("success","Dish updated successfully.")
-        return res.redirect("/dishes/" + dishId);
+        return res.redirect("/dishes");
     });
 };
 

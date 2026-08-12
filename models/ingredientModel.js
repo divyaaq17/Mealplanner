@@ -22,6 +22,17 @@ exports.getAllIngredients = (search, limit, offset, callback) => {
     db.query(sql, params, callback);
 
 };
+exports.getAllIngredientsForDropdown = (callback) => {
+
+    const sql = `
+        SELECT *
+        FROM Ingredients
+        ORDER BY IngredientName
+    `;
+
+    db.query(sql, callback);
+
+};
 
 exports.getIngredientCount = (search, callback) => {
 

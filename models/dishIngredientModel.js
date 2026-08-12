@@ -40,7 +40,16 @@ exports.deleteDishIngredients = (dishId, callback) => {
     db.query(sql, [dishId], callback);
 
 };
+exports.deleteDishIngredient = (dishId, ingredientId, callback) => {
 
+    const sql = `
+        DELETE FROM DishIngredients
+        WHERE DishID = ? AND IngredientID = ?
+    `;
+
+    db.query(sql, [dishId, ingredientId], callback);
+
+};
 exports.checkIngredientUsage = (ingredientId, callback) => {
     const sql = 'select * from DishIngredients where ingredientID = ?'
 

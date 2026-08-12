@@ -10,7 +10,16 @@ router.get("/dishes/:id/deleteDish",authMiddleware.isAuthenticated, dishControll
 router.get(    "/dishes/:id/favorite",    dishController.toggleFavorite);
 router.get("/dishes/:id",authMiddleware.isAuthenticated,dishController.showDishDetails);
 router.get("/dishes/:id/edit",authMiddleware.isAuthenticated,dishController.showEditpage)
-
+router.post(
+    "/dishes/:id/ingredients",
+    authMiddleware.isAuthenticated,
+    dishController.addIngredientToDish
+);
+router.get(
+    "/dishes/:id/ingredients/:ingredientId/delete",
+    authMiddleware.isAuthenticated,
+    dishController.removeIngredientFromDish
+);
 router.post("/dishes",dishController.addDish);
 router.post("/dishes/:id/editDish" , dishController.saveEditedDish)
 router.post("/dishes/:id/edit", dishController.saveEditedIngredients);
