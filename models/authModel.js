@@ -3,7 +3,7 @@ const db = require("../database/db");
 exports.addUser = (userName, email, password, callback) => {
 
     const sql = `
-    INSERT INTO users(UserName, Email, Password)
+    INSERT INTO Users(UserName, Email, Password)
     VALUES(?,?,?)
     `;
 
@@ -15,7 +15,7 @@ exports.getUserByEmail = (email, callback) => {
 
     const sql = `
     SELECT *
-    FROM users
+    FROM Users
     WHERE Email = ?
     `;
 
