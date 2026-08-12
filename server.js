@@ -48,9 +48,11 @@ app.use("/",ingredientRoutes)
 app.use("/",dishIngredientsRoutes)
 app.use("/",mealPlanRoutes)
 
-app.listen(3000,()=>{
-    console.log("Server running!")
-})
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 app.use((req, res) => {
 
     res.status(404).render("404");
