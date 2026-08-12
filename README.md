@@ -2,6 +2,12 @@
 
 A full-stack web application built using **Node.js, Express.js, MySQL, EJS, and Bootstrap** to help users organize meals, manage dishes and ingredients, plan daily and weekly meals, and generate shopping lists.
 
+## 🌐 Live Demo
+
+🚀 **[Open Meal Planner](https://mealplanner-production-a044.up.railway.app/)**
+
+The application is deployed using **Railway** and connected to a Railway MySQL database.
+
 ---
 
 ## ✨ Features
